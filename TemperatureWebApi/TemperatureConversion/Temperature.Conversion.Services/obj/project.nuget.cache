@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "70lcLcozQWyyN+2rpD9sBESwJSRvIvb0teLLe++6RKJaNLN5w/8Z40bSFbnjW8LYBrLX3cjY1PbRVP4ZXM+r/Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HuangR\\OneDrive - Vanquis Bank\\Desktop\\Ruby\\Learning Note\\TemperatureWebApi\\TemperatureConversion\\Temperature.Conversion.Services\\Temperature.Conversion.Services.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HuangR\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\HuangR\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\HuangR\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\HuangR\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\HuangR\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\HuangR\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
