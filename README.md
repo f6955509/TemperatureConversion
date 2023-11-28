@@ -4,7 +4,7 @@ This can convert temperature.
 2. Open solution in Visual Studio since this is developed under .NET 6.
 3. Build and Run WebService.
 4. WebAPI URL will be displayed 'https://localhost:7272/swagger/index.html'.
-5. Customer can access Web API via passing json data like below.
+5. Customer can access Web API by calling service 'https://localhost:7272/api/Temperature/Convert' via passing json data like below.
 
     {
 
