@@ -22,7 +22,7 @@ namespace Temperature.Conversion.Services.Controllers
 
         [Route("Convert")]
         [HttpPost]
-        public async Task<IActionResult> Convert([FromBody] TemperatureInputModel inputModel)
+        public TemperatureResult Convert([FromBody] TemperatureInputModel inputModel)
         {
             var result = new TemperatureResult();
 
@@ -43,12 +43,13 @@ namespace Temperature.Conversion.Services.Controllers
                     result.TemperatureF = GetFahrenheitFromCelsius(result.TemperatureC);
                     result.TemperatureK = inputModel.InputDegree;
                     break;
-                default:
-                    return StatusCode((int)HttpStatusCode.UnprocessableEntity);
-                    _logger.Log(LogLevel.Information, "Temperature/Convert has been called from user");
+                //default:
+                //    throw ArgumentException();
+                    //return StatusCode((int)HttpStatusCode.UnprocessableEntity);
+                    
             }
 
-            return Ok(result);
+            return result;
 
         }
 
