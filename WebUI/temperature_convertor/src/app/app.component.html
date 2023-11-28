@@ -60,7 +60,7 @@
         <span>Kelvin: {{temperatureModel.temperatureK}}</span>         
       </div>
     
-    <div><button type="button" class="convert-button" (click)="onTemperatureInputChange()">Convert</button></div>
+    <div><button type="button" class="convert-button" [disabled]="temperatureForm.controls['inputDegree'].status.toLocaleLowerCase() == 'invalid'" (click)="onTemperatureInputChange()">Convert</button></div>
 
   </div>
   
