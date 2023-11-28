@@ -24,6 +24,9 @@ namespace Temperature.Conversion.Services.Controllers
         [HttpPost]
         public async Task<IActionResult> Convert([FromBody] TemperatureInputModel inputModel)
         {
+            if(inputModel == null)
+                return StatusCode((int)HttpStatusCode.BadRequest);
+
             var result = new TemperatureResult();
 
             switch (inputModel.InputType)
