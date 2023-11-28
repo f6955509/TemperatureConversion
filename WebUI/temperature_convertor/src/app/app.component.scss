@@ -172,8 +172,21 @@ $color2: #3197EE;
   .convert-button:hover{
     background-color: #a20000;
     border: #f5f5f5;
+    cursor:pointer;
   }
 
+  button:disabled,
+  button[disabled]{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
+
+  button:disabled:hover,
+  button[disabled]:hover{
+      background-color: #cccccc;
+      border: #666666;
+   }
 
   .radio {
     margin: 0.5rem;
