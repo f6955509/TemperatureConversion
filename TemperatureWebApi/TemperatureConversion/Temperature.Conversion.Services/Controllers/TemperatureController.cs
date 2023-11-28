@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ namespace Temperature.Conversion.Services.Controllers
 
         [Route("Convert")]
         [HttpPost]
-        public TemperatureResult Convert([FromBody] TemperatureInputModel inputModel)
+        public async Task<IActionResult> Convert([FromBody] TemperatureInputModel inputModel)
         {
             var result = new TemperatureResult();
 
@@ -43,13 +43,11 @@ namespace Temperature.Conversion.Services.Controllers
                     result.TemperatureF = GetFahrenheitFromCelsius(result.TemperatureC);
                     result.TemperatureK = inputModel.InputDegree;
                     break;
-                //default:
-                //    throw ArgumentException();
-                    //return StatusCode((int)HttpStatusCode.UnprocessableEntity);
-                    
+                default:
+                    return StatusCode((int)HttpStatusCode.UnprocessableEntity);
             }
 
-            return result;
+            return Ok(result);
 
         }
 
