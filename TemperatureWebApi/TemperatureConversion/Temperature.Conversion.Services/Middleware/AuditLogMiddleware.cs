@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 
 namespace Temperature.Conversion.Services.Middleware
 {
@@ -14,20 +14,53 @@ namespace Temperature.Conversion.Services.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             var request = context.Request;
+            string clientIp = GetIPAddress(request);
 
-            if (request.Path.StartsWithSegments("/api"))
+            try
             {
-                request.RouteValues.TryGetValue("action", out var actionValue);
-                var actionName = (string)(actionValue ?? string.Empty);
 
-                var requestContent = await GetRequestContent(request).ConfigureAwait(false);
+                var originalBodyStream = context.Response.Body;
+                await using var responseBody = new MemoryStream();
+                context.Response.Body = responseBody;             
 
-                string clientIp = GetIPAddress(request);
+                if (request.Path.StartsWithSegments("/api"))
+                {
+                    request.RouteValues.TryGetValue("action", out var actionValue);
+                    var actionName = (string)(actionValue ?? string.Empty);
+                    var requestContent = await GetRequestContent(request).ConfigureAwait(false);
 
-                WriteAuditLog($"User from ip '{{' '{clientIp}' '}}' is trying to {request.Method} for method '{request.Path}/{actionName}' with data: {requestContent}");
+                    WriteAuditLog($"Http Request Information:\n" +
+                                           $"User ip:'{{{clientIp}}}',\n " +
+                                           $"Method:{request.Method},\n " +
+                                           $"Schema:{context.Request.Scheme},\n " +
+                                           $"Path: {context.Request.Path},\n " +
+                                           $"Request Body: {requestContent},\n ");
+
+                }
+
+                await _next(context);
+
+                var url = context.Request.Path;
+
+                if (request.Path.StartsWithSegments("/api"))
+                {
+                    context.Response.Body.Seek(0, SeekOrigin.Begin);
+                    var text = await new StreamReader(context.Response.Body).ReadToEndAsync();
+                    context.Response.Body.Seek(0, SeekOrigin.Begin);
+                    await responseBody.CopyToAsync(originalBodyStream);
+
+                    WriteAuditLog($"Http Response Information:\n" +
+                       $"User ip:'{{{clientIp}}}',\n " +
+                       $"Method:{request.Method},\n " +
+                       $"Schema:{context.Request.Scheme},\n " +
+                       $"Path: {context.Request.Path},\n " +
+                       $"Response Body: {text}\n ");
+                }
             }
-
-            await _next(context);
+            catch(Exception ex)
+            {
+                WriteAuditLog($"User from ip '{{' '{clientIp}' '}}' is getting error: {ex.Message}");
+            }
         }
 
         public static void WriteAuditLog(string message)
